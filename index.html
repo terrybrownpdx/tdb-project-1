@@ -27,19 +27,25 @@
     <div class="container">
       <header>Event Scheduler</header>
       <form>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">City</label>
+        <div class="form-group" type="text">          
+          <label for="city-input">City</label>          
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Event</label>
+        <div class="form-group" type="text">
+          <label for="event-input">Event</label>          
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Date</label>
+        <div class="form-group" type="text">          
+          <label for="date-input">Date</label>          
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-      </form>      
+
+        <input id="select-artist" type="submit" value="Submit">
+      </form>    
+      
+      <div class ="city"></div>
+      <div class ="event"></div>
+      <div class ="date"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
