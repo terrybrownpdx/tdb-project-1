@@ -10,7 +10,7 @@ $(document).ready(function () {
 			queryURL = queryURL+"&q="+passedEvent;
 		}
 		if(passedDate.length > 0){
-			queryURL = queryURL+"&datetime_utc.gt="+passedDate;
+			queryURL = queryURL+"&datetime_utc.gte="+passedDate;
 		}
 		$.ajax({
 			url: queryURL,
@@ -20,14 +20,6 @@ $(document).ready(function () {
 			console.log(queryURL);
 
 			var allEvents = response.events;
-
-			// var city = $("city").text("City: " + response.events);
-			// var event = $("event").text("Event " + response.events);
-			// var date = $("date").text("Date " + response.events);
-
-			// console.log("City: " + JSON.stringify(response.events[0].venue.city));
-			// console.log("Event " + JSON.stringify(response.events[0].title));
-			// console.log("Date " + JSON.stringify(response.events[0].datetime_utc));
 
 			$("#event-info").empty();
 			for (var i = 0; i < allEvents.length; i++) {
@@ -46,7 +38,6 @@ $(document).ready(function () {
 		})
 	}
 
-
 	// Event handler for user clicking the select-artist button
 	$("#select-event").on("click", function (event) {
 		// Preventing the button from trying to submit the form
@@ -60,8 +51,6 @@ $(document).ready(function () {
 		searchSeatGeeks(postalCodeInput, eventInput, dateInput);
 	})
 });
-
-
 
 
 
