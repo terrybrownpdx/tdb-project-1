@@ -2,9 +2,12 @@ $(document).ready(function () {
 	var clientID = "MjEzNjE5NjJ8MTYwMzMzNDkwMi4zNTQ2ODkx";
 	var queryURL = "https://api.seatgeek.com/2/events?client_id=" + clientID;
 
-	function searchSeatGeeks(passedPostalCode, passedEvent, passedDate) {
+	function searchSeatGeeks(passedPostalCode, passedRange, passedEvent, passedDate) {
 		if(passedPostalCode.length > 0){
 			queryURL = queryURL+"&postal_code="+passedPostalCode;
+			if(passedRange.length > 0){
+				queryURL = queryURL+"&range="+passedRange+"mi";
+			}
 		}
 		if(passedEvent.length > 0 ){
 			queryURL = queryURL+"&q="+passedEvent;
@@ -17,23 +20,23 @@ $(document).ready(function () {
 			method: "GET",
 		}).then(function (response) {
 			console.log(response);
-			console.log(queryURL);
 
 			var allEvents = response.events;
 
-			$("#event-info").empty();
+			$("#event-table-body").empty();
 			for (var i = 0; i < allEvents.length; i++) {
-				console.log("City: " + JSON.stringify(allEvents[i].venue.city));
-				console.log("Event " + JSON.stringify(allEvents[i].title));
-				console.log("Date " + JSON.stringify(allEvents[i].datetime_utc));
 
-				var city = $("<div>");
-				city.text("City: " + allEvents[i].venue.city);
-				var event = $("<div>");
-				event.text("Event " + allEvents[i].title);
-				var date = $("<div>");
-				date.text("Date " + allEvents[i].datetime_utc);
-				$("#event-info").append(city, event, date);
+				// Add events to table.
+				var row = $("<tr>");
+				var date = $("<td>");
+				date.text(allEvents[i].datetime_local);
+				var city = $("<td>");
+				city.text(allEvents[i].venue.city);
+				var event = $("<td>");
+				event.text(allEvents[i].title);
+
+				row.append(date,city,event)
+				$("#event-table-body").append(row);
 			}
 		})
 	}
@@ -44,11 +47,12 @@ $(document).ready(function () {
 		event.preventDefault();
 		// Storing the artist name
 		var postalCodeInput = $("#postal-code-input").val().trim();
+		var rangeInput = $("#range-input").val().trim();
 		var eventInput = $("#event-input").val().trim();
 		var dateInput = $("#date-input").val().trim();
 
 		// Running the searchBandsInTown function(passing in the artist as an argument)
-		searchSeatGeeks(postalCodeInput, eventInput, dateInput);
+		searchSeatGeeks(postalCodeInput, rangeInput, eventInput, dateInput);
 	})
 });
 
