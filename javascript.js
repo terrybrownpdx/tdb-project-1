@@ -88,13 +88,12 @@ $(document).ready(function () {
 		console.log("Find Hotel in " + city + ", " + country);
 
 		if (city.length < 1) {
-			alert("City is required");
-			return;
+			$("#cityModal").modal("show");
 		}
 		if (country.length < 1) {
-			alert("Country is required");
-			return;
+			$("#countryModal").modal("show");
 		}
+
 		var bestBookingRequest = {
 			async: true,
 			crossDomain: true,
