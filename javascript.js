@@ -27,7 +27,7 @@ $(document).ready(function () {
 		// Get the row details that were clicked on.
 		var target = $(event.target);
 		if (target.data("city") != null) {
-			searchHotels(target.data("city"), target.data("country"));
+			searchHotels(target.data("city"), target.data("country"), bestBookingID[0]);
 		}
 	});
 
@@ -54,7 +54,7 @@ $(document).ready(function () {
 			method: "GET",
 		}).then(function (response) {
 			// update Web-site with results
-			console.log(response);
+			// console.log(response);
 
 			var allEvents = response.events;
 			$("#event-info").removeClass("invisible");
@@ -79,21 +79,17 @@ $(document).ready(function () {
 				row.append(date, city, country, event, hotel);
 				$("#event-table-body").append(row);
 			}
-		})
+		}).fail(function (error) {
+			// Prepare and display modal error
+			$("#errorModalHeader").text("Error:" + error.status);
+			$("#errorModalDetail").text("Message:" + error.responseJSON.message);
+			$("#alertModal").modal("show");
+		});
 	}
 
 	// This function will call the best hotel API and return the recommended hotel in the area of the event.
-	function searchHotels(city, country) {
+	function searchHotels(city, country, apiKey) {
 		// Prepare queryURL
-		console.log("Find Hotel in " + city + ", " + country);
-
-		if (city.length < 1) {
-			$("#cityModal").modal("show");
-		}
-		if (country.length < 1) {
-			$("#countryModal").modal("show");
-		}
-
 		var bestBookingRequest = {
 			async: true,
 			crossDomain: true,
@@ -102,12 +98,11 @@ $(document).ready(function () {
 			method: "GET",
 			headers: {
 				"x-rapidapi-host": "best-booking-com-hotel.p.rapidapi.com",
-				"x-rapidapi-key": bestBookingID[0],
+				"x-rapidapi-key": apiKey,
 			},
 		};
 		$.ajax(bestBookingRequest).then(function (response) {
-			console.log(response);
-			console.log(bestBookingQueryURL);
+			// console.log(response);
 
 			// Clear existing hotel if showing or initialize hotel field
 			$("#hotel").removeClass("invisible");
@@ -116,7 +111,6 @@ $(document).ready(function () {
 
 			// create row with hotel details
 			var row = $("<tr>");
-
 			var name = $("<td>");
 			name.text(response.name);
 			var rating = $("<td>");
@@ -127,12 +121,26 @@ $(document).ready(function () {
 			} else {
 				price.text("check website for price");
 			}
-			var link = $("<td>");
+			var website = $("<td>");
+			var link = $("<a>");
+			link.attr("href", response.link);
 			link.text(response.link);
+			website.append(link);
 
-			row.append(name, rating, price, link);
+			row.append(name, rating, price, website);
 			hotel.append(row);
 
+		}).fail(function (error) {
+			// If reached limit try other apiKey (Gives 10 more tries)
+			if ((error.status === 429) && (apiKey !== bestBookingID[1])) {
+				searchHotels(city, country, bestBookingID[1]);
+			} else {
+				// console.log(error);
+				// Prepare and display modal error
+				$("#errorModalHeader").text("Error:" + error.status);
+				$("#errorModalDetail").text("Message:" + error.responseJSON.message);
+				$("#alertModal").modal("show");
+			}
 		});
 	}
 
