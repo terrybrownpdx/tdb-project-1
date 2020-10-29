@@ -4,19 +4,19 @@ $(document).ready(function () {
     "https://best-booking-com-hotel.p.rapidapi.com/booking/best-accommodation";
 
   function searchHotels(city, Country) {
-    if (city.length < 1) {
-      alert("City is required");
-      return;
+    if (city.length < 1) {    
+      $("#cityModal").modal("show");
     }
+
     if (Country.length < 1) {
-      alert("Counrty is required");
-      return;
+      $("#countryModal").modal("show");
     }
+  
     var settings = {
       async: true,
       crossDomain: true,
       url:
-        "https://best-booking-com-hotel.p.rapidapi.com/booking/best-accommodation?cityName="+city+"&countryName="+Country,
+        "https://best-booking-com-hotel.p.rapidapi.com/booking/best-accommodation?cityName=" + city + "&countryName=" + Country,
       method: "GET",
       headers: {
         "x-rapidapi-host": "best-booking-com-hotel.p.rapidapi.com",
@@ -28,18 +28,18 @@ $(document).ready(function () {
       console.log(queryURL);
 
       $("#event-info").empty();
-      
 
-        var name = $("<div>");
-        name.text("Hotel: " + response.name);
-        var link = $("<div>");
-        link.text("website " + response.link);
-        var rating = $("<div>");
-        rating.text("Rating " + response.rating);
-        var price = $("<div>");
-        price.text("price " + response.price);
-        $("#event-info").append(name, link, rating, price);
-      
+
+      var name = $("<div>");
+      name.text("Hotel: " + response.name);
+      var link = $("<div>");
+      link.text("website " + response.link);
+      var rating = $("<div>");
+      rating.text("Rating " + response.rating);
+      var price = $("<div>");
+      price.text("price " + response.price);
+      $("#event-info").append(name, link, rating, price);
+
     });
   }
 

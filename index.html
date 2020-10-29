@@ -19,21 +19,64 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
   <!-- Bootstrap DatePicker CSS -->
-  <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+  <link ref="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
   <!-- Bootstrap DatePicker JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 
 <body style="background-color: #ceedee;">
+<body>
+  <!-- Modal -->
+  <div class="modal fade" id="cityModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">City is Required</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="countryModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Country is Required</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container">
     <header>Event Scheduler</header>
     <form>
       <div class="form-group" type="text">
         <label for="postal-code-input">Postal Code</label>
-        <input class="form-control" id="postal-code-input"/>
+        <input class="form-control" id="postal-code-input" />
         <label for="range-input">Range (miles)</label>
-        <input class="form-control" id="range-input" placeholder="30"/>
+        <input class="form-control" id="range-input" placeholder="30" />
       </div>
       <div class="form-group" type="text">
         <label for="event-input">Event</label>
@@ -49,13 +92,29 @@
       <button type="button" id="select-event" class="btn btn-outline-primary">Submit</button>
     </form>
 
-    <div id="event-info" class="city">
+    <div id="hotel" class="invisible">
       <table class="table-striped">
         <thead>
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">City</th>
-            <th scope="col">Event</th>
+            <th>Hotel</th>
+            <th>Rating</th>
+            <th>Price</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody id="hotel-table-body">
+        </tbody>
+      </table>
+    </div>
+    <div id="event-info" class="invisible">
+      <table class="table-striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Event</th>
+            <th>Find Hotel</th>
           </tr>
         </thead>
         <tbody id="event-table-body">
@@ -63,6 +122,9 @@
       </table>
     </div>
 
+  </div>
+
+  <div id="event-info" class="city"></div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
