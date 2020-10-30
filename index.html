@@ -6,129 +6,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project-1</title>
 
-  <link rel="stylesheet" href="style.css">
   <!-- Bootstrap 4 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
-  <!-- JQuery 3.5 JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap 4 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-    crossorigin="anonymous"></script>
+
   <!-- Bootstrap DatePicker CSS -->
   <link ref="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
-  <!-- Bootstrap DatePicker JS -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body style="background-color: #ceedee;">
-<body>
-  <!-- Modal -->
-  <div class="modal fade" id="cityModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">City is Required</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">...</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="countryModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Country is Required</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">...</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
+
+  <body>
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="errorModalHeader" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalHeader">Error</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="errorModalDetail">...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-
-  <div class="container">
-    <header>Event Scheduler</header>
-    <form>
-      <div class="form-group" type="text">
-        <label for="postal-code-input">Postal Code</label>
-        <input class="form-control" id="postal-code-input" />
-        <label for="range-input">Range (miles)</label>
-        <input class="form-control" id="range-input" placeholder="30" />
-      </div>
-      <div class="form-group" type="text">
-        <label for="event-input">Event</label>
-        <textarea class="form-control" id="event-input" rows="3"></textarea>
-      </div>
-      <div class="form-group date" data-provide="datepicker">
-        <label for="date-input">Date </label>
-        <input type="text" class="form-control datepicker" id="date-input">
-        <div class="input-group-addon">
-          <span class="glyphicon glyphicon-th"></span>
+    <div class="container">
+      <header>Event Scheduler</header>
+      <form>
+        <div class="form-group" type="text">
+          <label for="postal-code-input">Postal Code</label>
+          <input class="form-control" id="postal-code-input" />
+          <label for="range-input">Range (miles)</label>
+          <input class="form-control" id="range-input" placeholder="30" />
         </div>
+        <div class="form-group" type="text">
+          <label for="event-input">Event</label>
+          <textarea class="form-control" id="event-input" rows="3"></textarea>
+        </div>
+        <div class="form-group date" data-provide="datepicker">
+          <label for="date-input">Date </label>
+          <input type="text" class="form-control datepicker" id="date-input">
+          <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        <button type="button" id="select-event" class="btn btn-outline-primary">Submit</button>
+      </form>
+
+      <div id="hotel" class="invisible">
+        <table class="table-striped col-12">
+          <thead>
+            <tr>
+              <th>Hotel</th>
+              <th>Rating</th>
+              <th>Price</th>
+              <th>Website</th>
+            </tr>
+          </thead>
+          <tbody id="hotel-table-body">
+          </tbody>
+        </table>
       </div>
-      <button type="button" id="select-event" class="btn btn-outline-primary">Submit</button>
-    </form>
-
-    <div id="hotel" class="invisible">
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th>Hotel</th>
-            <th>Rating</th>
-            <th>Price</th>
-            <th>Website</th>
-          </tr>
-        </thead>
-        <tbody id="hotel-table-body">
-        </tbody>
-      </table>
-    </div>
-    <div id="event-info" class="invisible">
-      <table class="table-striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Event</th>
-            <th>Find Hotel</th>
-          </tr>
-        </thead>
-        <tbody id="event-table-body">
-        </tbody>
-      </table>
+      <div id="event-info" class="invisible">
+        <table class="table-striped col-12">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>City</th>
+              <th>Country</th>
+              <th>Event</th>
+              <th>Find Hotel</th>
+            </tr>
+          </thead>
+          <tbody id="event-table-body">
+          </tbody>
+        </table>
+      </div>
     </div>
 
-  </div>
+    <!-- JQuery 3.5 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- Bootstrap 4 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"></script>
 
-  <div id="event-info" class="city"></div>
-  </div>
+    <!-- Bootstrap DatePicker JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="javascript.js"></script>
-</body>
+    <!-- Custom JS -->
+    <script src="javascript.js"></script>
+
+  </body>
 
 </html>
