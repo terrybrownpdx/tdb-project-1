@@ -6,6 +6,10 @@ $(document).ready(function () {
 	var bestBookingID = ["6ef6b8bcd6msh049e9784b355cf7p1fd186jsn5da7453e823d", "e1bd599768msh95205a794692e24p104f6cjsn21629139eaec"];
 	var bestBookingQueryURL = "https://best-booking-com-hotel.p.rapidapi.com/booking/best-accommodation?";
 
+	var postal = document.getElementById("postal-code-input");
+	var event = document.getElementById("event-input");
+	var date = document.getElementById("date-input");
+
 	// Event Listeners
 	// Event handler for user clicking the submit button
 	$("#select-event").on("click", function (event) {
@@ -15,8 +19,18 @@ $(document).ready(function () {
 		var postalCodeInput = $("#postal-code-input").val().trim();
 		var rangeInput = $("#range-input").val().trim();
 		var eventInput = $("#event-input").val().trim();
-		var dateInput = $("#date-input").val().trim();
+		var dateInput = $("#date-input").val().trim();		
 
+
+		var postalStorageInput = postal.value;
+		console.log(postalStorageInput);
+		var eventStorageInput = event.text;
+		console.log(eventStorageInput);
+
+		localStorage.getItem(postalStorageInput);
+		localStorage.getItem(eventStorageInput);
+		localStorage.setItem(postalStorageInput, eventStorageInput);
+		
 		// Running the searchBandsInTown function(passing in the artist as an argument)
 		searchSeatGeeks(postalCodeInput, rangeInput, eventInput, dateInput);
 	});
