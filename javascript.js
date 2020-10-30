@@ -15,7 +15,7 @@ $(document).ready(function () {
 		var postalCodeInput = $("#postal-code-input").val().trim();
 		var rangeInput = $("#range-input").val().trim();
 		var eventInput = $("#event-input").val().trim();
-		var dateInput = $("#date-input").val().trim();
+		var dateInput = $("#date-input").val().trim();		
 
 		// Running the searchBandsInTown function(passing in the artist as an argument)
 		searchSeatGeeks(postalCodeInput, rangeInput, eventInput, dateInput);
