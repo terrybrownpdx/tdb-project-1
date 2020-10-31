@@ -6,30 +6,21 @@ $(document).ready(function () {
 	var bestBookingID = ["6ef6b8bcd6msh049e9784b355cf7p1fd186jsn5da7453e823d", "e1bd599768msh95205a794692e24p104f6cjsn21629139eaec"];
 	var bestBookingQueryURL = "https://best-booking-com-hotel.p.rapidapi.com/booking/best-accommodation?";
 
-	var postal = document.getElementById("postal-code-input");
-	var event = document.getElementById("event-input");
-	var date = document.getElementById("date-input");
-
 	// Event Listeners
 	// Event handler for user clicking the submit button
 	$("#select-event").on("click", function (event) {
 		// Preventing the button from trying to submit the form
 		event.preventDefault();
-		// Storing the artist name
+		
 		var postalCodeInput = $("#postal-code-input").val().trim();
 		var rangeInput = $("#range-input").val().trim();
 		var eventInput = $("#event-input").val().trim();
 		var dateInput = $("#date-input").val().trim();		
 
-
-		var postalStorageInput = postal.value;
-		console.log(postalStorageInput);
-		var eventStorageInput = event.text;
-		console.log(eventStorageInput);
-
-		localStorage.getItem(postalStorageInput);
-		localStorage.getItem(eventStorageInput);
-		localStorage.setItem(postalStorageInput, eventStorageInput);
+		localStorage.setItem("stored-postal",postalCodeInput);
+		localStorage.setItem("stored-range", rangeInput);
+		localStorage.setItem("stored-event", eventInput);
+		localStorage.setItem("stored-date", dateInput);
 		
 		// Running the searchBandsInTown function(passing in the artist as an argument)
 		searchSeatGeeks(postalCodeInput, rangeInput, eventInput, dateInput);
@@ -46,6 +37,27 @@ $(document).ready(function () {
 	});
 
 	// Helper Functions
+	// This function will initialize webpage with what is stored in localstorage (if anything)
+	function initPage(){
+		var postal = localStorage.getItem("stored-postal");
+		var range = localStorage.getItem("stored-range");
+		var event = localStorage.getItem("stored-event");
+		var date = localStorage.getItem("stored-date");
+
+		if(postal != null){
+			$("#postal-code-input").val(postal);
+		}
+		if(range != null){
+			$("#range-input").val(range);
+		}
+		if(event != null){
+			$("#event-input").val(event);
+		}
+		if(date != null){
+			$("#date-input").val(date);
+		}
+	}
+
 	// This function will call the seatgeek API and search for events that match the passed in parameters
 	function searchSeatGeeks(passedPostalCode, passedRange, passedEvent, passedDate) {
 		// Prepare queryURL
@@ -158,4 +170,6 @@ $(document).ready(function () {
 		});
 	}
 
+	// Logic
+	initPage();
 });
